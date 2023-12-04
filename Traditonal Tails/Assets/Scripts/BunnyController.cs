@@ -8,6 +8,7 @@ public class BunnyController : MonoBehaviour
     public float moveSpeed = 5f;
     public float limits = 3f;
     public BunnyState State = BunnyState.Hovering;
+    private bool didSpawnNextBunny = false;
 
     public Rigidbody2D rigidbody2D;
 
@@ -50,9 +51,16 @@ public class BunnyController : MonoBehaviour
         {
             State = BunnyState.Stacked;
             FindObjectOfType<GameManager>().BunnyStacked();
+            
             rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
+            rigidbody2D.velocity = Vector2.zero;
+            rigidbody2D.angularVelocity = 0f;
 
-            FindObjectOfType<GameManager>().SpawnBunny();
+            if (!didSpawnNextBunny)
+            {
+                FindObjectOfType<GameManager>().SpawnBunny();
+                didSpawnNextBunny = true;
+            }
         }
     }
 

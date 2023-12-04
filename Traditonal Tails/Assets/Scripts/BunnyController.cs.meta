@@ -3,7 +3,8 @@ guid: 1efeed15c9b6cd443bc86b15dfbc8a21
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - rigidbody2D: {fileID: 5117510280502358881, guid: 0d43d7e70e9716f49959efe2448adab3, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     {
         //Istatiate new bunny at the spawn point
         GameObject newBunny = Instantiate(bunnyPrefab, spawnPoint.position, Quaternion.identity);
+        transform.position += Vector3.up;
     }
 
     public void BunnyStacked()
