@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class BunnyController : MonoBehaviour
@@ -30,6 +31,11 @@ public class BunnyController : MonoBehaviour
             rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
             // change state to dropped
             State = BunnyState.Dropped;
+        }
+
+        if (transform.position.y < -5f)
+        {
+            GameOver();
         }
     }
 
@@ -69,4 +75,10 @@ public class BunnyController : MonoBehaviour
         float yOffset = 0.5f;
         transform.position = new Vector2(otherBunny.transform.position.x, otherBunny.transform.position.y + yOffset);
     }
+
+    void GameOver()
+    {
+        SceneManager.LoadScene("GaameOver");
+    }
+    
 }
