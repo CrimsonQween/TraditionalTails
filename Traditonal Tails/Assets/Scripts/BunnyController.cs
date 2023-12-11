@@ -32,53 +32,49 @@ public class BunnyController : MonoBehaviour
             // change state to dropped
             State = BunnyState.Dropped;
         }
-
-        if (transform.position.y < -5f)
-        {
-            GameOver();
-        }
     }
 
     void MoveBunny()
     {
         // Use Rigidbody2D to move the bunny
         float horizontalInput = Mathf.Sin(Time.time * moveSpeed);
-        Vector2 movement = new Vector2(horizontalInput, 0f);
-        rigidbody2D.position = movement * limits;
+        rigidbody2D.position = new Vector2(horizontalInput * limits, transform.position.y);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Bunny"))
         {
-            StackBunny(collision.gameObject);
+            StackBunny();
         }
         else if (collision.gameObject.CompareTag("StackableSurface"))
         {
-            State = BunnyState.Stacked;
-            FindObjectOfType<GameManager>().BunnyStacked();
-            
-            rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
-            rigidbody2D.velocity = Vector2.zero;
-            rigidbody2D.angularVelocity = 0f;
-
-            if (!didSpawnNextBunny)
+            if (GameManager.HasStackedOnGround)
             {
-                FindObjectOfType<GameManager>().SpawnBunny();
-                didSpawnNextBunny = true;
+                FindObjectOfType<GameManager>().GameOver();
+            }
+            else
+            {
+                StackBunny();
             }
         }
     }
 
-    void StackBunny(GameObject otherBunny)
+    void StackBunny()
     {
-        float yOffset = 0.5f;
-        transform.position = new Vector2(otherBunny.transform.position.x, otherBunny.transform.position.y + yOffset);
-    }
-
-    void GameOver()
-    {
-        SceneManager.LoadScene("GaameOver");
+        GameManager.HasStackedOnGround = true;
+        State = BunnyState.Stacked;
+        FindObjectOfType<GameManager>().BunnyStacked();
+            
+        rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
+        rigidbody2D.velocity = Vector2.zero;
+        rigidbody2D.angularVelocity = 0f;
+        
+        if (!didSpawnNextBunny)
+        {
+            FindObjectOfType<GameManager>().SpawnBunny();
+            didSpawnNextBunny = true;
+        }
     }
     
 }

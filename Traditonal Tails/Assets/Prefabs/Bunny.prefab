@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 6725895785856611304}
   - component: {fileID: 993995056758762459}
   - component: {fileID: 5117510280502358881}
-  - component: {fileID: 2502599303111975126}
+  - component: {fileID: 8945913715740305778}
   m_Layer: 0
   m_Name: Bunny
-  m_TagString: StackableSurface
+  m_TagString: Bunny
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -130,8 +130,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!70 &2502599303111975126
-CapsuleCollider2D:
+--- !u!61 &8945913715740305778
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -163,5 +163,15 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
   m_Size: {x: 1, y: 1}
-  m_Direction: 1
+  m_EdgeRadius: 0

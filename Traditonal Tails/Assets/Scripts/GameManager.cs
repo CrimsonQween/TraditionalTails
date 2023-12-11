@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -11,17 +12,20 @@ public class GameManager : MonoBehaviour
 
     public float spawnInterval = 2f;
     public float nextSpawnTime;
+
+    public static bool HasStackedOnGround = false;
     
     void Start()
     {
         nextSpawnTime = Time.time + spawnInterval;
+        HasStackedOnGround = false;
     }
     
     public void SpawnBunny()
     {
-        //Istatiate new bunny at the spawn point
-        GameObject newBunny = Instantiate(bunnyPrefab, spawnPoint.position, Quaternion.identity);
+        //Instatiate new bunny at the spawn point
         transform.position += Vector3.up;
+        GameObject newBunny = Instantiate(bunnyPrefab, spawnPoint.position, Quaternion.identity);
     }
 
     public void BunnyStacked()
@@ -39,4 +43,8 @@ public class GameManager : MonoBehaviour
         }
     }
     
+    public void GameOver()
+    {
+        SceneManager.LoadScene("GaameOver");
+    }
 }
