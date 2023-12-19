@@ -2,5 +2,6 @@
 {
     Hovering,
     Dropped,
-    Stacked
+    Stacked,
+    OffLimits
 }

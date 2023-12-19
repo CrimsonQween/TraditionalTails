@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class BunnyController : MonoBehaviour
 {
-    public float moveSpeed = 5f;
+    public float moveSpeed = 2f;
     public float limits = 3f;
     public BunnyState State = BunnyState.Hovering;
     private bool didSpawnNextBunny = false;
@@ -43,8 +43,18 @@ public class BunnyController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Bunny"))
+        if (collision.gameObject.CompareTag("Bunny") && State == BunnyState.Dropped)
         {
+            BunnyController other = collision.gameObject.GetComponent<BunnyController>();
+
+            if (other.State == BunnyState.OffLimits)
+            {
+                //Go to Gameover
+                SceneManager.LoadScene("GaameOver");
+                Debug.Log("oops");
+                return;
+            }
+            other.State = BunnyState.OffLimits;
             StackBunny();
         }
         else if (collision.gameObject.CompareTag("StackableSurface"))
@@ -60,7 +70,7 @@ public class BunnyController : MonoBehaviour
         }
     }
 
-    void StackBunny()
+    private void StackBunny()
     {
         GameManager.HasStackedOnGround = true;
         State = BunnyState.Stacked;
