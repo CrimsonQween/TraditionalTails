@@ -78,6 +78,8 @@ public class BunnyController : MonoBehaviour
     {
         GameManager.HasStackedOnGround = true;
         State = BunnyState.Stacked;
+        
+        // Increase the Score when a bunny is stacked
         FindObjectOfType<GameManager>().BunnyStacked();
             
         rigidbody2D.bodyType = RigidbodyType2D.Kinematic;

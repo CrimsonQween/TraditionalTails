@@ -1,10 +1,11 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    public Text scoreText;
+    public TMP_Text scoreText;
     private int score = 0;
 
     public GameObject bunnyPrefab;
@@ -35,11 +36,16 @@ public class GameManager : MonoBehaviour
         UpdateScoreUI();
     }
 
+    public int Score
+    {
+        get { return score; }
+    }
+
     void UpdateScoreUI()
     {
         if (scoreText != null)
         {
-            scoreText.text = "Score" + score;
+            scoreText.text = " Score: " + score;
         }
     }
     
@@ -47,4 +53,5 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene("GaameOver");
     }
+    
 }
