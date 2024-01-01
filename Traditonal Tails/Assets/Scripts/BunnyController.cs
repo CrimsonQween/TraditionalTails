@@ -14,36 +14,71 @@ public class BunnyController : MonoBehaviour
     public Rigidbody2D rigidbody2D;
     public Sprite[] bunnySprites; 
     private int currentSpriteIndex = 0;
+    
+    private int stackHeight = 0;
+    
+    private bool isRaining = false;
 
-
+    public float rainDuration = 5f; 
+    private float rainTimer = 0f;
+    private float originalMoveSpeed;
+    
     void Start()
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
+        originalMoveSpeed = moveSpeed; // Set the original move speed
         UpdateSprite();
     }
 
     void Update()
     {
-        if (State == BunnyState.Hovering)
+        if (isRaining)
         {
-            MoveBunny();
-        }
+            // Update rain timer
+            rainTimer -= Time.deltaTime;
 
-        if (Input.GetKeyDown(KeyCode.Space) && State == BunnyState.Hovering)
+            // Check if rain event is over
+            if (rainTimer <= 0f)
+            {
+                isRaining = false;
+                // Reset moveSpeed to its original value after rain
+                moveSpeed = originalMoveSpeed;
+            }
+        }
+        else
         {
-            // activate rigidbody
-            rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
-            // change state to dropped
-            State = BunnyState.Dropped;
+            // Your existing code for non-rain conditions
+            if (State == BunnyState.Hovering)
+            {
+                MoveBunny();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Space) && State == BunnyState.Hovering)
+            {
+                // activate rigidbody
+                rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
+                // change state to dropped
+                State = BunnyState.Dropped;
+            }
         }
     }
 
     void MoveBunny()
     {
+        // Adjust move speed based on rain and stack height
+        float adjustedMoveSpeed = moveSpeed + stackHeight * 0.1f;
+
+        if (isRaining)
+        {
+            // Reduce move speed during rain
+            adjustedMoveSpeed *= 0.5f; // You can adjust the multiplier as needed
+        }
+
         // Use Rigidbody2D to move the bunny
-        float horizontalInput = Mathf.Sin(Time.time * moveSpeed);
+        float horizontalInput = Mathf.Sin(Time.time * adjustedMoveSpeed);
         rigidbody2D.position = new Vector2(horizontalInput * limits, transform.position.y);
     }
+
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -78,6 +113,8 @@ public class BunnyController : MonoBehaviour
     {
         GameManager.HasStackedOnGround = true;
         State = BunnyState.Stacked;
+        stackHeight++;
+
         
         // Increase the Score when a bunny is stacked
         FindObjectOfType<GameManager>().BunnyStacked();
@@ -97,6 +134,14 @@ public class BunnyController : MonoBehaviour
     {
         // Update the sprite based on the current index
         GetComponent<SpriteRenderer>().sprite = bunnySprites[currentSpriteIndex];
+    }
+    
+    private void StartRain()
+    {
+        isRaining = true;
+        rainTimer = rainDuration;
+   
+        moveSpeed *= 0.8f; // Adjust the multiplier as needed
     }
     
 }
