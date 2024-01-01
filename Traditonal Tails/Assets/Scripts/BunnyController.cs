@@ -12,10 +12,14 @@ public class BunnyController : MonoBehaviour
     private bool didSpawnNextBunny = false;
 
     public Rigidbody2D rigidbody2D;
+    public Sprite[] bunnySprites; 
+    private int currentSpriteIndex = 0;
+
 
     void Start()
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
+        UpdateSprite();
     }
 
     void Update()
@@ -85,6 +89,12 @@ public class BunnyController : MonoBehaviour
             FindObjectOfType<GameManager>().SpawnBunny();
             didSpawnNextBunny = true;
         }
+    }
+    
+    private void UpdateSprite()
+    {
+        // Update the sprite based on the current index
+        GetComponent<SpriteRenderer>().sprite = bunnySprites[currentSpriteIndex];
     }
     
 }
