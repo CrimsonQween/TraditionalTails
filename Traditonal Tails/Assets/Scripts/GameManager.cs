@@ -14,7 +14,10 @@ public class GameManager : MonoBehaviour
     public float spawnInterval = 2f;
     public float nextSpawnTime;
 
+    public Pivot pivot;
+
     public static bool HasStackedOnGround = false;
+    public Vector3 offset;
     
     void Start()
     {
@@ -22,11 +25,12 @@ public class GameManager : MonoBehaviour
         HasStackedOnGround = false;
     }
     
-    public void SpawnBunny()
+    public void SpawnBunny(BunnyController lastBunny)
     {
         //Instatiate new bunny at the spawn point
-        transform.position += Vector3.up;
+        transform.position = Vector3.up * (lastBunny.transform.position.y + offset.y);
         GameObject newBunny = Instantiate(bunnyPrefab, spawnPoint.position, Quaternion.identity);
+        pivot.rotationSpeed += 0.1f;
     }
 
     public void BunnyStacked()
