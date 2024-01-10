@@ -18,7 +18,8 @@ public class GameManager : MonoBehaviour
 
     public static bool HasStackedOnGround = false;
     public Vector3 offset;
-    
+
+    public TMP_Text finalScoreText;    
     void Start()
     {
         nextSpawnTime = Time.time + spawnInterval;
@@ -45,17 +46,22 @@ public class GameManager : MonoBehaviour
         get { return score; }
     }
 
-    void UpdateScoreUI()
+void UpdateScoreUI()
+{
+    if (scoreText != null)
     {
-        if (scoreText != null)
-        {
-            scoreText.text = " Score: " + score;
-        }
+        scoreText.text = " Score: " + score;
     }
-    
-    public void GameOver()
+
+    if (finalScoreText != null)
     {
-        SceneManager.LoadScene("GaameOver");
+        finalScoreText.text = "Final Score: " + score;
     }
+}
     
+public void GameOver()
+{
+    UpdateScoreUI(); 
+    SceneManager.LoadScene("GaameOver");
+}
 }
