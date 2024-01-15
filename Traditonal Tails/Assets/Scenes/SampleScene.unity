@@ -5441,7 +5441,7 @@ MonoBehaviour:
   nextSpawnTime: 0
   pivot: {fileID: 2142076031}
   offset: {x: 0, y: 5.5, z: 0}
-  finalScoreText: {fileID: 6387580058470870257, guid: b912417eb452fad4b9f643dda0d6309e, type: 3}
+  updatedScore: {fileID: 1791742164}
 --- !u!1 &1610794996
 GameObject:
   m_ObjectHideFlags: 0
