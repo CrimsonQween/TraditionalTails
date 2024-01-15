@@ -19,13 +19,14 @@ public class GameManager : MonoBehaviour
     public static bool HasStackedOnGround = false;
     public Vector3 offset;
 
-    public TMP_Text finalScoreText;    
+    public ScoreManager updatedScore;
+
     void Start()
     {
         nextSpawnTime = Time.time + spawnInterval;
         HasStackedOnGround = false;
     }
-    
+
     public void SpawnBunny(BunnyController lastBunny)
     {
         //Instatiate new bunny at the spawn point
@@ -36,9 +37,8 @@ public class GameManager : MonoBehaviour
 
     public void BunnyStacked()
     {
-        //Called when bunny is successfully stacked
-        score++;
-        UpdateScoreUI();
+        updatedScore.IncreaseScore(1);
+        
     }
 
     public int Score
@@ -46,22 +46,8 @@ public class GameManager : MonoBehaviour
         get { return score; }
     }
 
-void UpdateScoreUI()
-{
-    if (scoreText != null)
+    public void GameOver()
     {
-        scoreText.text = " Score: " + score;
+        SceneManager.LoadScene("GaameOver");
     }
-
-    if (finalScoreText != null)
-    {
-        finalScoreText.text = "Final Score: " + score;
-    }
-}
-    
-public void GameOver()
-{
-    UpdateScoreUI(); 
-    SceneManager.LoadScene("GaameOver");
-}
 }
