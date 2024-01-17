@@ -7,6 +7,7 @@ TagManager:
   - StackableSurface
   - Bunny
   - GameOver
+  - Music
   layers:
   - Default
   - TransparentFX
