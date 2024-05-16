@@ -1,12 +1,10 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
 public class ScoreManager : MonoBehaviour
 {
-    public TMP_Text scoreText;
+    [SerializeField] private TMP_Text scoreText;
     private Scores scoreData = new Scores();
 
     void Start()
@@ -16,13 +14,11 @@ public class ScoreManager : MonoBehaviour
         UpdateScoreText();
     }
 
-    public void IncreaseScore(int points)
+    public void UpdateScore(float height)
     {
-        // Normal Scoring
-        scoreData.score += points;
+        scoreData.score = Mathf.RoundToInt(height);
         UpdateScoreText();
 
-        // High Score
         if (scoreData.score > scoreData.highScore)
         {
             scoreData.highScore = scoreData.score;
@@ -31,14 +27,17 @@ public class ScoreManager : MonoBehaviour
 
     void UpdateScoreText()
     {
-        scoreText.text = "Score: " + scoreData.score;
+        scoreText.text = "Height: " + scoreData.score + " cm";
     }
-    
-    
-
 
     private void OnDestroy()
     {
+        SaveData.Save(scoreData);
+    }
+
+    private IEnumerator DelayedSave()
+    {
+        yield return new WaitForSeconds(0f); 
         SaveData.Save(scoreData);
     }
 }

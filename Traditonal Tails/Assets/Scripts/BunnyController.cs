@@ -4,13 +4,13 @@ using UnityEngine.SceneManagement;
 
 public class BunnyController : MonoBehaviour
 {
-    public float moveSpeed = 2f;
-    public float limits = 3f;
-    public BunnyState State = BunnyState.Hovering;
-    private bool didSpawnNextBunny = false;
-    public Rigidbody2D rigidbody2D;
-    public Sprite[] bunnySprites;
+    [SerializeField] private float moveSpeed = 2f;
+    [SerializeField] private float limits = 3f;
+    [SerializeField] private BunnyState State = BunnyState.Hovering;
+    [SerializeField] private Rigidbody2D rigidbody2D;
+    [SerializeField] private Sprite[] bunnySprites;
 
+    private bool didSpawnNextBunny = false;
     private int stackHeight = 0;
     void Start()
     {

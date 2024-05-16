@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 
-// Struct is just a data structure
-[System.Serializable] // The data becomes accessible for saving
+[System.Serializable]
 public struct Scores
 {
     public int score;

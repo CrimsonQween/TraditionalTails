@@ -1,29 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
+using System.IO;
 
 public static class SaveData
 {
-    private static string filePath = Application.persistentDataPath + "/scores.json" ;
-    
-    public static void Save(Scores scoreData)
+    private static string savePath = Application.persistentDataPath + "/savedata.json";
+
+    public static void Save(Scores scores)
     {
-        string data = JsonUtility.ToJson(scoreData);
-        Debug.Log(data);
-        File.WriteAllText(filePath, data);
+        string json = JsonUtility.ToJson(scores);
+        File.WriteAllText(savePath, json);
     }
 
     public static Scores Load()
     {
-        // The file does not exists so we stop here
-        if (!File.Exists(filePath))
+        if (File.Exists(savePath))
         {
-            return new Scores();
+            string json = File.ReadAllText(savePath);
+            return JsonUtility.FromJson<Scores>(json);
         }
-
-        string data = File.ReadAllText(filePath);
-        Scores scoreData = JsonUtility.FromJson<Scores>(data);
-        return scoreData;
+        else
+        {
+            Debug.LogWarning("Save file not found. Returning default Scores object.");
+            return new Scores { score = 0, highScore = 0 };
+        }
     }
 }

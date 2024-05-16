@@ -3,7 +3,12 @@ guid: 1a18ba22ef2fbb342bae8902d515ac60
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - scoreText: {instanceID: 0}
+  - bunnyPrefab: {fileID: 427317992849578853, guid: 0d43d7e70e9716f49959efe2448adab3, type: 3}
+  - spawnPoint: {fileID: 5196798776252481477, guid: 7b9b798cbad828649adf570bc390654e, type: 3}
+  - pivot: {fileID: 3310300054410444560, guid: 36cc2a38990da2d4ba592f142772d194, type: 3}
+  - scoreManager: {fileID: 1182091186577346685, guid: 069da073300b26d41afd2a5a05bd31f2, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
