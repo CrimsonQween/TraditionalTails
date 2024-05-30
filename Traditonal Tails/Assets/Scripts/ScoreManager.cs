@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using TMPro;
 
-public class ScoreManager : MonoBehaviour
+public partial class ScoreManager : MonoBehaviour
 {
     [SerializeField] private TMP_Text scoreText;
     private Scores scoreData = new Scores();
